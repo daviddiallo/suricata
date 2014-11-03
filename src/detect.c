@@ -779,7 +779,8 @@ end:
 }
 
 static inline void DetectPrefilterMergeSort(DetectEngineCtx *de_ctx,
-        DetectEngineThreadCtx *det_ctx, SigGroupHead *sgh)
+                                            DetectEngineThreadCtx *det_ctx,
+                                            SigGroupHead *sgh)
 {
     SigIntId mpm, nonmpm;
     det_ctx->match_array_cnt = 0;

@@ -32,7 +32,7 @@
 
 /* Included into detect.c */
 
-
+#if 0
 
 #ifdef UNITTESTS
 #include "flow-util.h"
@@ -363,3 +363,5 @@ void DetectSimdRegisterTests(void)
     UtRegisterTest("SigTestSIMDMask04", SigTestSIMDMask04, 1);
 #endif /* UNITTESTS */
 }
+
+#endif

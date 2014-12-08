@@ -483,43 +483,6 @@ int SigLoadSignatures(DetectEngineCtx *de_ctx, char *sig_file, int sig_file_excl
     SCReturnInt(ret);
 }
 
-#if defined(__SSE3__) || defined(__tile__)
-/* SIMD implementations are in detect-simd.c */
-#else
-/* Non-SIMD implementation */
-/**
- *  \brief build an array of signatures that will be inspected
- *
- *  All signatures that can be filtered out on forehand are not added to it.
- *
- *  \param de_ctx detection engine ctx
- *  \param det_ctx detection engine thread ctx -- array is stored here
- *  \param p packet
- *  \param mask Packets mask
- *  \param alproto application layer protocol
- */
-void SigMatchSignaturesBuildMatchArray(DetectEngineThreadCtx *det_ctx,
-                                       Packet *p, SignatureMask mask,
-                                       AppProto alproto)
-{
-    uint32_t u;
-
-    /* reset previous run */
-    det_ctx->match_array_cnt = 0;
-
-    for (u = 0; u < det_ctx->sgh->sig_cnt; u++) {
-        SignatureHeader *s = &det_ctx->sgh->head_array[u];
-        if ((mask & s->mask) == s->mask) {
-            if (SigMatchSignaturesBuildMatchArrayAddSignature(det_ctx, p, s, alproto) == 1) {
-                /* okay, store it */
-                det_ctx->match_array[det_ctx->match_array_cnt] = s->full_sig;
-                det_ctx->match_array_cnt++;
-            }
-        }
-    }
-}
-#endif /* No SIMD implementation */
-
 int SigMatchSignaturesRunPostMatch(ThreadVars *tv,
                                    DetectEngineCtx *de_ctx, DetectEngineThreadCtx *det_ctx, Packet *p,
                                    Signature *s)
@@ -12217,8 +12180,9 @@ void SigRegisterTests(void)
     UtRegisterTest("DetectAddressYamlParsing04", DetectAddressYamlParsing04, 1);
 
     UtRegisterTest("SigTestPorts01", SigTestPorts01, 1);
-
+#if 0
     DetectSimdRegisterTests();
+#endif
 #endif /* UNITTESTS */
 }
 

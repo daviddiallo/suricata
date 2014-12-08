@@ -482,7 +482,7 @@ int SigLoadSignatures(DetectEngineCtx *de_ctx, char *sig_file, int sig_file_excl
     DetectParseDupSigHashFree(de_ctx);
     SCReturnInt(ret);
 }
-
+#if 0
 /**
  *  \brief See if we can prefilter a signature on inexpensive checks
  *
@@ -561,7 +561,7 @@ int SigMatchSignaturesBuildMatchArrayAddSignature(DetectEngineThreadCtx *det_ctx
 
     return 1;
 }
-
+#endif
 #if defined(__SSE3__) || defined(__tile__)
 /* SIMD implementations are in detect-simd.c */
 #else
@@ -4278,8 +4278,9 @@ int SigAddressPrepareStage4(DetectEngineCtx *de_ctx)
         SigGroupHead *sgh = de_ctx->sgh_array[idx];
         if (sgh == NULL)
             continue;
-
+#if 0
         SigGroupHeadBuildHeadArray(de_ctx, sgh);
+#endif
         SigGroupHeadSetFilemagicFlag(de_ctx, sgh);
         SigGroupHeadSetFileMd5Flag(de_ctx, sgh);
         SigGroupHeadSetFilesizeFlag(de_ctx, sgh);
@@ -4290,7 +4291,9 @@ int SigAddressPrepareStage4(DetectEngineCtx *de_ctx)
     }
 
     if (de_ctx->decoder_event_sgh != NULL) {
+#if 0
         SigGroupHeadBuildHeadArray(de_ctx, de_ctx->decoder_event_sgh);
+#endif
         /* no need to set filestore count here as that would make a
          * signature not decode event only. */
     }

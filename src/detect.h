@@ -337,7 +337,7 @@ typedef struct IPOnlyCIDRItem_ {
     struct IPOnlyCIDRItem_ *next;
 
 } IPOnlyCIDRItem;
-
+#if 0
 /** \brief Subset of the Signature for cache efficient prefiltering
  */
 typedef struct SignatureHeader_ {
@@ -368,7 +368,7 @@ typedef struct SignatureHeader_ {
     /** pointer to the full signature */
     struct Signature_ *full_sig;
 } SignatureHeader;
-
+#endif
 /** \brief Used to start a pointer to SigMatch context
  * Should never be dereferenced without casting to something else.
  */
@@ -1007,11 +1007,12 @@ typedef struct SigGroupHead_ {
 #if defined(__SSE3__) || defined(__tile__)
     SignatureMask *mask_array;
 #endif
+#if 0
     /** chunk of memory containing the "header" part of each
      *  signature ordered as an array. Used to pre-filter the
      *  signatures to be inspected in a cache efficient way. */
     SignatureHeader *head_array;
-
+#endif
     SignatureNonMpmStore *non_mpm_store_array;
     uint32_t non_mpm_store_cnt; // size is cnt * sizeof(SignatureNonMpmStore)
 
@@ -1203,9 +1204,11 @@ Signature *SigFindSignatureBySidGid(DetectEngineCtx *, uint32_t, uint32_t);
 void SigMatchSignaturesBuildMatchArray(DetectEngineThreadCtx *,
                                        Packet *, SignatureMask,
                                        uint16_t);
+#if 0
 int SigMatchSignaturesBuildMatchArrayAddSignature(DetectEngineThreadCtx *,
                                                   Packet *, SignatureHeader *,
                                                   uint16_t);
+#endif
 void SigMatchFree(SigMatch *sm);
 void SigCleanSignatures(DetectEngineCtx *);
 

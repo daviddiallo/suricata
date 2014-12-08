@@ -84,8 +84,9 @@ void SigGroupHeadRegisterTests(void);
 void SigGroupHeadPrintSigs(DetectEngineCtx *de_ctx, SigGroupHead *sgh);
 
 void SigGroupHeadStore(DetectEngineCtx *, SigGroupHead *);
-
+#if 0
 int SigGroupHeadBuildHeadArray(DetectEngineCtx *, SigGroupHead *);
+#endif
 void SigGroupHeadSetFilemagicFlag(DetectEngineCtx *, SigGroupHead *);
 void SigGroupHeadSetFilestoreCount(DetectEngineCtx *, SigGroupHead *);
 void SigGroupHeadSetFileMd5Flag(DetectEngineCtx *, SigGroupHead *);

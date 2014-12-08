@@ -184,12 +184,12 @@ void SigGroupHeadFree(SigGroupHead *sgh)
     SCLogDebug("sgh %p", sgh);
 
     PatternMatchDestroyGroup(sgh);
-
+#if 0
     if (sgh->head_array != NULL) {
         SCFree(sgh->head_array);
         sgh->head_array = NULL;
     }
-
+#endif
     if (sgh->match_array != NULL) {
         detect_siggroup_matcharray_free_cnt++;
         detect_siggroup_matcharray_memory -= (sgh->sig_cnt * sizeof(Signature *));
@@ -1744,7 +1744,7 @@ int SigGroupHeadBuildNonMpmArray(DetectEngineCtx *de_ctx, SigGroupHead *sgh)
     }
     return 0;
 }
-
+#if 0
 int SigGroupHeadBuildHeadArray(DetectEngineCtx *de_ctx, SigGroupHead *sgh)
 {
     Signature *s = NULL;
@@ -1780,7 +1780,7 @@ int SigGroupHeadBuildHeadArray(DetectEngineCtx *de_ctx, SigGroupHead *sgh)
 
     return 0;
 }
-
+#endif
 /**
  * \brief Check if a SigGroupHead contains a Signature, whose sid is sent as an
  *        argument.

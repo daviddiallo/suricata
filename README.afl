@@ -1,0 +1,9 @@
+= Télécharger, décompresser et compiler afl
+
+= Compiler htp
+= Compiler suricata
+./autogen.sh && CC=/path/to/afl/afl-gcc ./configure --enable-unittests && make
+
+
+= Lancer afl
+LD_LIBRARY_PATH=libhtp/htp/.libs/ ./afl-fuzz -i testcases -o findings suricata/src/.libs/test_modbus @@

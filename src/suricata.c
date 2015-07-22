@@ -2140,7 +2140,8 @@ static int PostConfLoadedSetup(SCInstance *suri)
     SCReturnInt(TM_ECODE_OK);
 }
 
-int main(int argc, char **argv)
+int suricata_main(int argc, char **argv)
+//int main(int argc, char **argv)
 {
     SCInstance suri;
 
@@ -2540,3 +2541,5 @@ int main(int argc, char **argv)
 
     exit(engine_retval);
 }
+
+//int main () {printf("Empty main !\n");}

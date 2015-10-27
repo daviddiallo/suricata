@@ -2220,7 +2220,7 @@ int SMBParserTest05(void)
     alpd_tctx = AppLayerProtoDetectGetCtxThread();
 
     alproto = AppLayerProtoDetectGetProto(alpd_tctx,
-                                          &f,
+                                          &f, NULL,
                                           smbbuf1, smblen1,
                                           IPPROTO_TCP, STREAM_TOSERVER);
     if (alproto != ALPROTO_UNKNOWN) {
@@ -2230,7 +2230,7 @@ int SMBParserTest05(void)
     }
 
     alproto = AppLayerProtoDetectGetProto(alpd_tctx,
-                                          &f,
+                                          &f, NULL,
                                           smbbuf2, smblen2,
                                           IPPROTO_TCP, STREAM_TOSERVER);
     if (alproto != ALPROTO_SMB) {
@@ -2303,7 +2303,7 @@ int SMBParserTest06(void)
     alpd_tctx = AppLayerProtoDetectGetCtxThread();
 
     alproto = AppLayerProtoDetectGetProto(alpd_tctx,
-                                          &f,
+                                          &f, NULL,
                                           smbbuf1, smblen1,
                                           IPPROTO_TCP, STREAM_TOSERVER);
     if (alproto != ALPROTO_UNKNOWN) {
@@ -2313,7 +2313,7 @@ int SMBParserTest06(void)
     }
 
     alproto = AppLayerProtoDetectGetProto(alpd_tctx,
-                                          &f,
+                                          &f, NULL,
                                           smbbuf2, smblen2,
                                           IPPROTO_TCP, STREAM_TOSERVER);
     if (alproto != ALPROTO_SMB) {

@@ -110,6 +110,43 @@ Examples::
   modbus: unit >10, access read discretes, address <100                 # Greater than unit identifier 10 and Read access at address smaller than 100 of Discretes Input table
   modbus: unit 10<>20, access write holding, address 500, value >200    # Greater than unit identifier 10 and smaller than unit identifier 20 and Write value greater than 200 at address 500 of Holding Registers table
 
+With the setting **unit**, you can match on:
+
+* a MODBUS slave address of a remote device connected on the sub-network behind a bridge or a gateway. The destination IP address identifies the bridge itself and the bridge uses the MODBUS unit identifier to forward the request to the right slave device. 
+
+Syntax::
+
+  modbus: unit <value>
+  modbus: unit <value>, function <value>
+  modbus: unit <value>, function <value>, subfunction <value>
+  modbus: unit <value>, function [!] <assigned | unassigned | public | user | reserved | all>
+  modbus: unit <value>, access <read | write>
+  modbus: unit <value>, access read <discretes | coils | input | holding>
+  modbus: unit <value>, access read <discretes | coils | input | holding>, address <value>
+  modbus: unit <value>, access write < coils | holding>
+  modbus: unit <value>, access write < coils | holding>, address <value>
+  modbus: unit <value>, access write < coils | holding>, address <value>, value <value>
+
+With _<value>_ setting matches on the address or value as it is being
+accessed or written as follows::
+
+  unit 10     # exactly unit identifier 10
+  unit 10<>20 # greater than unit identifier 10 and smaller than unit identifier 20
+  unit >10    # greater than unit identifier 10
+  unit <10    # smaller than unit identifier 10
+
+Examples::
+
+  modbus: unit 10                                                       # Unit identifier 10
+  modbus: unit 10, function 21                                          # Unit identifier 10 and write File record function
+  modbus: unit 10, function 4, subfunction 4                            # Unit identifier 10 and force Listen Only Mode (Diagnostics) function
+  modbus: unit 10, function assigned                                    # Unit identifier 10 and assigned function
+  modbus: unit 10, function !reserved                                   # Unit identifier 10 and every function but reserved function
+  modbus: unit 10, access read                                          # Unit identifier 10 and Read access
+  modbus: unit 10, access write coils                                   # Unit identifier 10 and Write access to Coils table
+  modbus: unit >10, access read discretes, address <100                 # Greater than unit identifier 10 and Read access at address smaller than 100 of Discretes Input table
+  modbus: unit 10<>20, access write holding, address 500, value >200    # Greater than unit identifier 10 and smaller than unit identifier 20 and Write value greather than 200 at address 500 of Holding Registers table
+
 (cf. http://www.modbus.org/docs/Modbus_Application_Protocol_V1_1b3.pdf)
 
 **Note:** Address of read and write are starting at 1. So if your system
